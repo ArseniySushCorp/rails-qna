@@ -37,3 +37,4 @@ yarn-debug.log*
 
 # Ingore database.yml
 config/database.yml
+.env
