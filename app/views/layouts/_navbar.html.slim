@@ -1,0 +1,20 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container
+    a.navbar-brand
+      | Q&A
+    .collapse.navbar-collapse.d-flex.justify-content-between
+      ul.navbar-nav
+        li.nav-item
+          = link_to "Home", root_path, class: 'nav-link'
+      ul.navbar-nav
+        - if user_signed_in?
+          li.nav-text
+            .nav-link
+              = current_user&.email
+          li.nav-item
+            = link_to "Sign out", destroy_user_session_path, method: :delete, class: 'nav-link'
+        - else
+          li.nav-item
+            = link_to "Sign in", new_user_session_path, class: 'nav-link'
+          li.nav-item
+            = link_to "Sign up", new_user_registration_path, class: 'nav-link'

@@ -28,7 +28,7 @@ gem 'devise'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-
+gem 'bootstrap'
 gem 'slim-rails'
 
 # Alternatively before_action
