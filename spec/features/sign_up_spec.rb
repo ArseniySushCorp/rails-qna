@@ -3,22 +3,27 @@ feature 'User can sign up', %q{
   As an unauthenticated user
   I'd like to be able to sign up
 } do
+  given(:new_user) { build(:user) }
   given(:user) { create(:user) }
+  background { visit new_user_registration_path }
 
-  scenario 'Authenticated user tries to sign out' do
-    sign_in(user)
-    click_on 'Sign out'
+  scenario 'Unregistered user tries to sign up' do
+    fill_in 'Email', with: new_user.email
+    fill_in 'Password', with: new_user.password
+    fill_in 'Password confirmation', with: new_user.password
+    click_on 'Sign up', class: 'btn'
 
-    expect(page).to have_content 'Signed out successfully.'
-    expect(page).to_not have_content user.email
+    expect(page).to have_content 'Welcome! You have signed up successfully.'
+    expect(page).to have_content new_user.email
   end
 
-  scenario 'Unauthenticated user tries to sign out' do
-    visit root_path
+  scenario 'Registered user tries to sign up' do
 
-    expect(page).to have_content 'Sign in'
-    expect(page).to have_content 'Sign up'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    fill_in 'Password confirmation', with: user.password
+    click_on 'Sign up', class: 'btn'
 
-    expect(page).to_not have_content 'Sign out'
+    expect(page).to have_content 'Email has already been taken'
   end
 end
