@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  expose :question
+  expose :question, parent: :current_user
 
   def index
     @questions = Question.all

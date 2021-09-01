@@ -18,7 +18,6 @@ feature 'User can sign up', %q{
   end
 
   scenario 'Registered user tries to sign up' do
-
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     fill_in 'Password confirmation', with: user.password
