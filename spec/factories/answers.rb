@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :answer do
     correct { false }
-    body { 'answer text' }
+    body { Faker::Books::Lovecraft.sentence }
 
     question
 

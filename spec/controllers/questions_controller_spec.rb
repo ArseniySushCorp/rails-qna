@@ -90,10 +90,11 @@ RSpec.describe QuestionsController, type: :controller do
       before { patch :update, params: { id: question, question: attributes_for(:question, :invalid) } }
 
       it 'does not change question' do
+        before_question = question
         question.reload
 
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
+        expect(question.title).to eq before_question.title
+        expect(question.body).to eq before_question.body
       end
 
       it 're-renders edit view' do
