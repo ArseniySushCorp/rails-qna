@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  user_actions:
+    successfully_created: "%{resource} was successfully created."
+    successfully_deleted: "%{resource} was successfully deleted."
+    delete_rejected: "You can't delete this %{resource}, because you are not an author."

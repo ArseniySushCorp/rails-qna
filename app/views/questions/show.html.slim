@@ -1,2 +1,15 @@
-h1= question.title
-p= question.body
+h2= @question.title
+h3= @question.body
+
+- if user_signed_in?
+  p.delete= link_to 'Delete', question_path(@question), method: :delete, data: { confirm: 'Are you sure to delete question?' }
+
+h4= "Answers:"
+
+= render @question.answers
+
+= form_with model: [@question, @question.answers.new], local: true do |f|
+  = f.label :body
+  = f.text_field :body
+
+  = f.submit 'Answer'
