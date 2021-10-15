@@ -23,6 +23,11 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 
+
+# UI
+gem 'bootstrap'
+gem 'jquery-rails'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -39,6 +44,8 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'sprockets-rails'
 end
 
 group :development do
