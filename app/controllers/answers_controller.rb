@@ -20,8 +20,6 @@ class AnswersController < ApplicationController
     else
       head :forbidden
     end
-
-    redirect_to question_path(@answer.question)
   end
 
   def set_best
