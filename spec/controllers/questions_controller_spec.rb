@@ -70,6 +70,55 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
+  describe 'PATCH #update' do
+    let!(:question) { create(:question) }
+    let(:valid_response) { patch :update, params: { id: question, question: { title: 'updated title' } }, format: :js }
+    let(:invalid_response) { patch :update, params: { id: question, question: attributes_for(:question, :invalid) }, format: :js }
+
+    context 'when author tries to edit own question' do
+      before { login author }
+
+      context 'with valid params' do
+        before { valid_response }
+
+        it 'changes question attributes' do
+          question.reload
+
+          expect(question.title).to eq 'updated title'
+        end
+
+        it 'renders update view' do
+          expect(response).to render_template :update
+        end
+      end
+
+      context 'with invalid params' do
+        it 'does not update the question in database' do
+          expect { invalid_response }.not_to change(question, :title)
+        end
+
+        it 'renders update view' do
+          invalid_response
+          expect(response).to render_template :update
+        end
+      end
+    end
+
+    context 'when another user tries to edit the question' do
+      before { login(user) }
+
+      it 'does not update the question in database' do
+        expect { valid_response }.not_to change(question, :title)
+      end
+    end
+
+    context 'when unauthorized user try to update question' do
+      it 'does not update the question in database' do
+        expect { valid_response }.not_to change(question, :title)
+      end
+    end
+  end
+
   describe 'POST #destroy' do
     let!(:question) { create(:question, user: author) }
     let(:question_destroy) { delete :destroy, params: { id: question.id } }
