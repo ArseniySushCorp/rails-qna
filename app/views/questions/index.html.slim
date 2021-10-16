@@ -1,5 +1,7 @@
 h1= 'Questions list'
 
-ol= render @questions
+ol
+  - @questions.each do |question|
+    li.question= link_to question.title, question_path(question)
 
 = link_to 'Ask question', new_question_path, class: 'btn btn-primary d-flex justify-content-center'

@@ -33,7 +33,6 @@ gem 'jquery-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'bootstrap'
 gem 'slim-rails'
 
 group :development, :test do
@@ -42,7 +41,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop', require: false
-  gem 'rubocop-rspec', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'sprockets-rails'

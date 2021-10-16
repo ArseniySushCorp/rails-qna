@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
   def show; end
 
   def create
-    @answer = @question.answers.create(answer_params.merge(author: current_user))
+    @answer = @question.answers.create(answer_params.merge(user: current_user))
   end
 
   def update
