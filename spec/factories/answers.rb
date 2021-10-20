@@ -1,21 +1,19 @@
 FactoryBot.define do
-  sequence :body_answer do |n|
-    "Answer body #{n}"
-  end
-
   factory :answer do
     body { 'MyAnswer' }
-    association :question
+    question
     association :user, factory: :user
 
     factory :uniq_answer do
-      body
-      association :question
+      sequence :body do |n|
+        "Answer body #{n}"
+      end
+      question
       association :user, factory: :user
     end
+  end
 
-    trait :invalid do
-      body { nil }
-    end
+  trait :invalid do
+    body { nil }
   end
 end

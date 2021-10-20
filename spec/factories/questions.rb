@@ -15,11 +15,16 @@ FactoryBot.define do
     factory :uniq_question do
       title
       body
-      association :user, factory: :user
     end
+  end
 
-    trait :invalid do
-      title { nil }
-    end
+  trait :with_answers do
+    transient { answers_count { 3 } }
+
+    after(:create) { |question, evaluator| create_list(:uniq_answer, evaluator.answers_count, question: question, user: question.user) }
+  end
+
+  trait :invalid_question do
+    title { nil }
   end
 end
