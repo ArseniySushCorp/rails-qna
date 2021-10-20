@@ -1,10 +1,20 @@
 li id= answer.id class= [answer.best ? 'answer best' : 'answer']
   p
     = answer.body
+  h5 Attachments
+  ul.files id= "files_attached-#{answer.id}"
+  - if answer.files.attached?
+    = render partial: 'shared/attachment', collection: answer.files
   - if user_signed_in? && current_user.author_of?(answer.question) && !answer.best
     p.best
       = button_to 'Best', set_best_answer_path(answer), remote: true, method: :patch
+
   - if user_signed_in? && current_user.author_of?(answer)
+    = form_with model: answer, class: "attach", local: false do |f|
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
+      = f.submit 'Attach'
+
     div.buttons-row
       p.delete
         = link_to 'Delete', answer_path(answer), method: :delete, data: {answer_id: answer.id}, remote: true
@@ -13,8 +23,9 @@ li id= answer.id class= [answer.best ? 'answer best' : 'answer']
 
   = render 'shared/errors', resource: answer
 
-  = form_with model: answer, class: 'hidden', html: {id: "edit-answer-#{answer.id}"}, local: false do |f|
-    = f.label :body, 'Your answer'
-    = f.text_area :body
+  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}"}, local: false do |f|
+    p.form-field
+      = f.label :body, 'Your answer'
+      = f.text_area :body
 
     = f.submit 'Save'

@@ -1,0 +1,3 @@
+div.file-container id= "file-attachment-#{attachment.id}"
+  p.file= link_to attachment.filename.to_s, url_for(attachment), target: '_blank'
+  p.delete-attach= link_to 'Detach', attachment_path(attachment), method: :delete, remote: true

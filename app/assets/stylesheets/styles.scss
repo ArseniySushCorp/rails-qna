@@ -1,0 +1,57 @@
+.form > form {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.form-field {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.file {
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid green;
+  border-radius: 4px;
+  width: min-content;
+  margin-bottom: 10px;
+}
+
+.file-container {
+  display: flex;
+  align-items: center;
+
+  & > p:first-of-type {
+    margin-right: 10px;
+  }
+}
+
+.attach {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  align-items: center;
+  border: 1px solid #000;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 10px 0;
+
+  & > input {
+    margin: 10px;
+  }
+
+  & > input[type="submit"] {
+    width: 60px;
+  }
+}
+
+.delete-attach {
+  cursor: pointer;
+}

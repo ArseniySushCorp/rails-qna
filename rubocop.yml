@@ -4,6 +4,11 @@ require:
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - db/migrate/*.rb
+    - db/schema.rb
+    - config/environments/*.rb
+    - spec/*.rb
 
 Style/FrozenStringLiteralComment:
   Enabled: false

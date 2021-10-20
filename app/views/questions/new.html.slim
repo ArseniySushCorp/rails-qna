@@ -1,11 +1,16 @@
 = render 'shared/errors', resource: @question
 
-= form_with model: @question, local: false do |f|
-  p
-    = f.label :title
-    = f.text_field :title
-  p
-    = f.label :body
-    = f.text_area :body
+.form
+  = form_with model: @question, local: false do |f|
+    p.form-field
+      = f.label :title
+      = f.text_field :title
+    p.form-field
+      = f.label :body
+      = f.text_area :body
+    p.form-field
+      = f.label :files
+      = f.file_field :files, multiple: true
 
-  p= f.submit 'Ask', class: 'btn btn-primary'
+    p= f.submit 'Ask', class: 'btn btn-primary'
+    = link_to 'Back', questions_path,, class: 'btn btn-primary'
