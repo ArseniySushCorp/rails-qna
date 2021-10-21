@@ -6,7 +6,7 @@ feature 'Author can destroy own questions', %(
   given!(:question_own) { create(:question) }
   given!(:question_foreign) { create(:question) }
 
-  context 'when authenticated user tries to destroy' do
+  describe 'Authenticated user tries to destroy' do
     background { sign_in(question_own.user) }
 
     scenario 'own question' do

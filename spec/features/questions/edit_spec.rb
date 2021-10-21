@@ -4,7 +4,7 @@ feature 'Author can edit own questions', %(
   I'd like to be able to edit own questions
 ) do
   given!(:user) { create(:user) }
-  given!(:question) { create(:question, user: user) }
+  given!(:question) { create(:question, :with_file, user: user) }
   given(:question_foreign) { create(:question) }
 
   describe 'Authenticated user', js: true do
@@ -12,6 +12,8 @@ feature 'Author can edit own questions', %(
       sign_in user
       visit question_path(question)
     end
+    given(:delete_btn) { page.all('p.delete-attach') }
+
     scenario 'when edit own question' do
       click_on 'Edit'
 
@@ -43,6 +45,44 @@ feature 'Author can edit own questions', %(
 
       expect(page).to have_content question_foreign.body
       expect(page).not_to have_link 'Edit'
+    end
+
+    scenario 'when attach file to own question' do
+      within '.question' do
+        attach_file 'Files', [Rails.root.join('spec/rails_helper.rb'), Rails.root.join('spec/spec_helper.rb')]
+
+        click_on 'Attach'
+
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+      end
+    end
+
+    scenario "when tries to attach file to another user's question" do
+      visit question_path(question_foreign)
+
+      within '.question' do
+        expect(page).not_to have_link 'Attach'
+      end
+    end
+
+    scenario "when deletes own question's file" do
+      within '.question' do
+        expect(page).to have_link 'rails_helper.rb'
+        delete_btn.first.click
+
+        sleep 1
+
+        expect(page).not_to have_link 'rails_helper.rb'
+      end
+    end
+
+    scenario "when tries to delete another user's question file" do
+      visit question_path(question_foreign)
+
+      within '.question' do
+        expect(page).not_to have_link 'Detach'
+      end
     end
   end
 

@@ -24,6 +24,16 @@ FactoryBot.define do
     after(:create) { |question, evaluator| create_list(:uniq_answer, evaluator.answers_count, question: question, user: question.user) }
   end
 
+  trait :with_file do
+    after(:build) do |question|
+      question.files.attach(
+        io: File.open(Rails.root.join('spec/rails_helper.rb')),
+        filename: 'rails_helper.rb',
+        content_type: '.rb'
+      )
+    end
+  end
+
   trait :invalid_question do
     title { nil }
   end

@@ -5,8 +5,9 @@ feature 'Author can edit own answers', %(
 ) do
   given!(:user) { create(:user) }
   given!(:question) { create(:question) }
-  given!(:answer) { create(:answer, question: question, user: user) }
+  given!(:answer) { create(:answer, :with_files, question: question, user: user) }
   given(:answer_foreign) { create(:answer) }
+  given(:delete_btn) { page.all('p.delete-attach') }
 
   describe 'Authenticated user', js: true do
     background do
@@ -44,6 +45,44 @@ feature 'Author can edit own answers', %(
 
       expect(page).to have_content answer_foreign.body
       expect(page).not_to have_link 'Edit'
+    end
+
+    scenario 'when attach file to own answer' do
+      within '.answers' do
+        attach_file 'Files', [Rails.root.join('spec/rails_helper.rb'), Rails.root.join('spec/spec_helper.rb')]
+
+        click_on 'Attach'
+
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+      end
+    end
+
+    scenario "when tries to attach file to another user's answer" do
+      visit question_path(answer_foreign.question)
+
+      within '.answers' do
+        expect(page).not_to have_link 'Attach'
+      end
+    end
+
+    scenario "when deletes own question's file" do
+      within '.answers' do
+        expect(page).to have_link 'rails_helper.rb'
+        delete_btn.last.click
+
+        sleep 1
+
+        expect(page).not_to have_link 'rails_helper.rb'
+      end
+    end
+
+    scenario "when tries to delete another user's question file" do
+      visit question_path(answer_foreign.question)
+
+      within '.answer' do
+        expect(page).not_to have_link 'Detach'
+      end
     end
   end
 

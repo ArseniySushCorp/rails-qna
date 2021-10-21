@@ -6,7 +6,7 @@ feature 'Author can destroy own answers', %(
   given(:answer_own) { create(:answer) }
   given(:answer_foreign) { create(:answer) }
 
-  context 'when authenticated user tries to destroy', js: true do
+  describe 'Authenticated user tries to destroy', js: true do
     background { sign_in(answer_own.user) }
 
     scenario 'own answer' do
