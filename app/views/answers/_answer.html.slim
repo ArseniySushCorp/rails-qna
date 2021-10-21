@@ -5,6 +5,11 @@ li id= answer.id class= [answer.best ? 'answer best' : 'answer']
   ul.files id= "files_attached-#{answer.id}"
   - if answer.files.attached?
     = render partial: 'shared/attachment', collection: answer.files
+
+  h5 Links:
+  ul.links
+    = render answer.links
+
   - if user_signed_in? && current_user.author_of?(answer.question) && !answer.best
     p.best
       = button_to 'Best', set_best_answer_path(answer), remote: true, method: :patch

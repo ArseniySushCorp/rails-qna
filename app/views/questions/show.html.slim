@@ -16,6 +16,21 @@ ul.answers
     = f.label :files
     = f.file_field :files, multiple: true, direct_upload: true
 
+  p Links:
+  #links
+    = f.fields_for :links do |link|
+      .field
+        = link.label :name, 'Link name'
+        br
+        = link.text_field :name
+      .field
+        = link.label :url
+        br
+        = link.text_field :url
+
+    .links
+      = link_to_add_association 'add link', f, :links
+
   = f.submit 'Answer', class: 'btn btn-primary'
 br
 br

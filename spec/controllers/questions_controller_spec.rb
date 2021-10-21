@@ -27,12 +27,32 @@ RSpec.describe QuestionsController, type: :controller do
     it 'show needed question' do
       expect(assigns(:question)).to eq question
     end
+
+    it 'assigns new answer to question' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
+
+    it 'assigns new links to question answer' do
+      expect(assigns(:answer).links.first).to be_a_new(Link)
+    end
   end
 
   describe 'GET #new' do
     before do
       login(user)
       get :new
+    end
+
+    it 'assigns a new Question to @question' do
+      expect(assigns(:question)).to be_a_new(Question)
+    end
+
+    it 'creates a new link with question' do
+      expect(assigns(:question).links.first).to be_a_new(Link)
+    end
+
+    it 'assigns a new reward for question' do
+      expect(assigns(:question).reward).to be_a_new(Reward)
     end
 
     it 'renders new view' do

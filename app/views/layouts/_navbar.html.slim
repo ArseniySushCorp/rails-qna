@@ -7,6 +7,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         li.nav-item
           = link_to "Home", root_path, class: 'nav-link'
       ul.navbar-nav
+        li.nav-item
+          = link_to "Rewards", rewards_path, class: 'nav-link'
         - if user_signed_in?
           li.nav-text
             .nav-link
