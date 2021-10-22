@@ -25,6 +25,7 @@ class AnswersController < ApplicationController
   def set_best
     if current_user.author_of?(@answer.question)
       @answer.assign_as_best
+      helpers.grant_reward(@answer.user)
     else
       head :forbidden
     end
@@ -41,6 +42,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, files: [])
+    params.require(:answer).permit(:body, files: [], links_attributes: %i[name url])
   end
 end

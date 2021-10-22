@@ -34,6 +34,10 @@ FactoryBot.define do
     end
   end
 
+  trait :with_reward do
+    reward
+  end
+
   trait :invalid_question do
     title { nil }
   end

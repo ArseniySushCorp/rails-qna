@@ -1,12 +1,17 @@
-div.question id= @question.id
+.question id= @question.id
   h2
     = @question.title
   h3
     = @question.body
-  h5 Attachments
+  h5 Attachments:
   ul.files id= "files_attached-#{@question.id}"
     - if @question.files.attached?
       = render partial: 'shared/attachment', collection: @question.files
+  
+  h5 Links:
+  ul
+    = render @question.links
+
   - if user_signed_in? && current_user.author_of?(@question)
     = form_with model: @question, class: "attach", local: false do |f|
       = f.label :files
@@ -14,7 +19,7 @@ div.question id= @question.id
 
       = f.submit 'Attach'
 
-    div.buttons-row
+    .buttons-row
       p.delete
         = link_to 'Delete', question_path(@question), method: :delete
       p.edit
