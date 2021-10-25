@@ -1,4 +1,4 @@
-.question id= @question.id
+.question id= "question-#{@question.id}"
   h2
     = @question.title
   h3
@@ -11,6 +11,8 @@
   h5 Links:
   ul
     = render @question.links
+
+  = render 'shared/votes', resource: question
 
   - if user_signed_in? && current_user.author_of?(@question)
     = form_with model: @question, class: "attach", local: false do |f|

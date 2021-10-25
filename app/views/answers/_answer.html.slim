@@ -1,4 +1,4 @@
-li id= answer.id class= [answer.best ? 'answer best' : 'answer']
+li id= "answer-#{answer.id}" class= [answer.best ? 'answer best' : 'answer']
   p
     = answer.body
   h5 Attachments
@@ -10,6 +10,8 @@ li id= answer.id class= [answer.best ? 'answer best' : 'answer']
   ul.links
     = render answer.links
 
+  = render 'shared/votes', resource: answer
+
   - if user_signed_in? && current_user.author_of?(answer.question) && !answer.best
     p.best
       = button_to 'Best', set_best_answer_path(answer), remote: true, method: :patch
@@ -20,7 +22,7 @@ li id= answer.id class= [answer.best ? 'answer best' : 'answer']
       = f.file_field :files, multiple: true, direct_upload: true
       = f.submit 'Attach'
 
-    div.buttons-row
+    .buttons-row
       p.delete
         = link_to 'Delete', answer_path(answer), method: :delete, data: {answer_id: answer.id}, remote: true
       p.edit
