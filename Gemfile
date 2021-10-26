@@ -24,6 +24,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'cocoon'
 gem 'slim-rails'
 gem 'octokit', '~> 4.0'
+gem 'with_model'
 
 # URL validation
 gem 'validate_url'

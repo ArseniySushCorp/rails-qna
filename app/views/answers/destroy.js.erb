@@ -1,4 +1,4 @@
 <% if @answer.destroyed? %>
-  $('<%= "##{@answer.id}" %>').remove('<%= "##{@answer.id}" %>')
+  $('<%= "#answer-#{@answer.id}" %>').remove('<%= "#answer-#{@answer.id}" %>')
   $('.notice').html('<%= escape_javascript(flash[:notice] = t('user_actions.successfully_deleted', resource: @answer.class)) %>')
 <% end %>

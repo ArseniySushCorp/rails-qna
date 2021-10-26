@@ -1,5 +1,5 @@
 <% if !@question.errors.present? %>
-	$('<%= "##{@question.id}" %>').html('<%= escape_javascript(render @question) %>')
+  $('<%= "#question-#{@question.id}" %>').html('<%= escape_javascript(render @question) %>')
 <% else %>
 	$('<%= "#edit-question-#{@question.id}" %>').prepend('<%= escape_javascript(render 'shared/errors', resource: @question) %>')
 <% end %>
