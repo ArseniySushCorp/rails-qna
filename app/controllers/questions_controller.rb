@@ -53,7 +53,8 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, files: [], reward_attributes: %i[title image], links_attributes: %i[name url _destroy])
+    params.require(:question).permit(:title, :body, files: [], reward_attributes: %i[title image],
+                                                    links_attributes: %i[name url _destroy])
   end
 
   def publish_question
