@@ -29,8 +29,8 @@ feature 'User can create answer', %(
 
       click_on 'Answer'
 
-      expect(page).to have_link 'rails_helper.rb'
-      expect(page).to have_link 'spec_helper.rb'
+      expect(page).to have_content 'rails_helper.rb'
+      expect(page).to have_content 'spec_helper.rb'
     end
 
     scenario 'try to post empty answer' do
@@ -48,5 +48,35 @@ feature 'User can create answer', %(
     click_on 'Answer'
 
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+  describe 'multiple sessions' do
+    given(:question) { create(:question) }
+
+    scenario 'answer appears on another users page', :js do
+      Capybara.using_session('user') do
+        sign_in(user)
+
+        visit question_path(question)
+      end
+
+      Capybara.using_session('guest') do
+        visit question_path(question)
+
+        expect(page).not_to have_content 'Test answer'
+      end
+
+      Capybara.using_session('user') do
+        fill_in 'Your answer', with: 'Test answer'
+
+        click_on 'Answer'
+
+        expect(page).to have_content 'Test answer'
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'Test answer'
+      end
+    end
   end
 end

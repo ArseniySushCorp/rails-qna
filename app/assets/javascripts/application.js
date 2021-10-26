@@ -17,4 +17,5 @@
 //= require popper
 //= require bootstrap
 //= require cocoon
+//= require @rails/actioncable
 //= require_tree

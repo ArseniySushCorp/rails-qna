@@ -1,0 +1,6 @@
+$('.comment-errors').html('<%= escape_javascript(render 'shared/errors', resource: @comment) %>')
+$('.notice').html('<%= notice %>')
+$('.alert').html('<%= alert %>')
+<% if @comment.persisted? %>
+	$('form').find('#comment_body').val('')
+<% end %>

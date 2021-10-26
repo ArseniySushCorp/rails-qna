@@ -36,3 +36,14 @@
         = f.text_area :body
 
       = f.submit 'Save', class: 'btn btn-primary'
+
+
+  .comments
+    .comment-errors
+    .h5 Comments:
+    = render @question.comments
+  .new-comment
+    = form_with model: [@question, @question.comments.build], local: false, format: :js do |f|
+      = f.label :body, 'Comment:'
+      = f.text_area :body
+      = f.submit 'Comment'
