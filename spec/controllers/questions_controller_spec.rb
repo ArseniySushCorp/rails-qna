@@ -93,7 +93,9 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'PATCH #update' do
     let!(:question) { create(:question) }
     let(:valid_response) { patch :update, params: { id: question, question: { title: 'updated title' } }, format: :js }
-    let(:invalid_response) { patch :update, params: { id: question, question: attributes_for(:question, :invalid) }, format: :js }
+    let(:invalid_response) do
+      patch :update, params: { id: question, question: attributes_for(:question, :invalid) }, format: :js
+    end
 
     context 'when author tries to edit own question' do
       before { login author }

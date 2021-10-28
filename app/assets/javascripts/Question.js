@@ -95,4 +95,58 @@ class Question {
         this.voteErrorEvent(event)
       })
   }
+
+  static jsonRender(data) {
+    const locals = JSON.parse(data)
+
+    const questions = $(".questions")
+
+    const question = $("<li></li>").toggleClass("question")
+
+    question.append(`<a href="/questions/${locals.question.id}">${locals.question.title}</a>`)
+
+    questions.append(question)
+
+    return questions
+  }
+
+  static newComment(locals) {
+    const form = $("<form></form>")
+    const token = $("<input></input>")
+
+    form.attr({
+      action: `/questions/${locals.question.id}/comments.js`,
+      "accept-charset": "UTF-8",
+      "data-remote": true,
+      method: "post"
+    })
+
+    token
+      .attr({
+        type: "hide",
+        name: "authenticity_token",
+        value: locals.create_comment_token
+      })
+      .hide()
+
+    form
+      .append(token)
+      .append($('<label for="comment_body">Comment:</label>'))
+      .append(
+        $("<textarea></textarea>").attr({
+          name: "comment[body]",
+          id: "comment_body"
+        })
+      )
+      .append(
+        $("<input></input>").attr({
+          type: "submit",
+          name: "commit",
+          value: "Comment",
+          "data-disable-with": "Comment"
+        })
+      )
+
+    return form
+  }
 }

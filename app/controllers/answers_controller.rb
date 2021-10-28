@@ -5,6 +5,8 @@ class AnswersController < ApplicationController
   before_action :find_question, only: %i[create]
   before_action :find_answer, only: %i[show update destroy set_best]
 
+  after_action :publish_answer, only: %i[create]
+
   def show; end
 
   def create
@@ -45,5 +47,18 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, files: [], links_attributes: %i[name url])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+
+    ActionCable.server.broadcast(
+      'answers',
+      {
+        answer: @answer,
+        current_user: current_user,
+        create_comment_token: form_authenticity_token
+      }.to_json
+    )
   end
 end

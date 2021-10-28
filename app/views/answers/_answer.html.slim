@@ -36,3 +36,13 @@ li id= "answer-#{answer.id}" class= [answer.best ? 'answer best' : 'answer']
       = f.text_area :body
 
     = f.submit 'Save'
+
+  .comments_answer
+  .comment-errors
+    h5 Comments:
+    = render answer.comments
+  .new-comment
+    = form_with model: [answer, answer.comments.build], local: false, format: :js do |f|
+      = f.label :body, 'Comment:'
+      = f.text_area :body
+      = f.submit 'Comment'

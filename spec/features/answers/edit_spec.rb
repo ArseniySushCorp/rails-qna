@@ -17,13 +17,13 @@ feature 'Author can edit own answers', %(
     scenario 'when edit own answers' do
       click_on 'Edit'
 
-      within '.answers' do
+      within '.answer' do
         fill_in 'Your answer', with: 'Edited answer'
         click_on 'Save'
 
         expect(page).not_to have_content answer.body
         expect(page).to have_content 'Edited answer'
-        expect(page).not_to have_selector 'textarea'
+        expect(page).not_to have_selector '#answer_body'
       end
     end
 

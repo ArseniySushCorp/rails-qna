@@ -21,7 +21,9 @@ FactoryBot.define do
   trait :with_answers do
     transient { answers_count { 3 } }
 
-    after(:create) { |question, evaluator| create_list(:uniq_answer, evaluator.answers_count, question: question, user: question.user) }
+    after(:create) do |question, evaluator|
+      create_list(:uniq_answer, evaluator.answers_count, question: question, user: question.user)
+    end
   end
 
   trait :with_file do

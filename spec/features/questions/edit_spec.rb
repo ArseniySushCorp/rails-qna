@@ -23,7 +23,8 @@ feature 'Author can edit own questions', %(
 
         expect(page).not_to have_content question.title
         expect(page).to have_content 'Edited question'
-        expect(page).not_to have_selector 'textarea'
+        expect(page).not_to have_selector '#question_title'
+        expect(page).not_to have_selector '#question_body'
       end
     end
 

@@ -17,6 +17,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :answers, only: %i[] do
+    resources :comments, shallow: true, defaults: { commentable_type: 'Answer' }, only: %i[create destroy]
+  end
+
+  resources :questions, only: %i[] do
+    resources :comments, shallow: true, defaults: { commentable_type: 'Question' }, only: %i[create destroy]
+  end
+
   resources :attachments, only: :destroy
   resources :rewards, only: :index
   resources :links, only: :destroy

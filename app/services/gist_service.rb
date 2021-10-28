@@ -1,5 +1,5 @@
 class GistService
-  GIST_URL_REG = %r{^https:\/\/gist.github.com\/\w+\/\w{32}$}.freeze
+  GIST_URL_REG = %r{^https://gist.github.com/\w+/\w{32}$}.freeze
 
   def initialize(client: nil)
     @client = client || Octokit::Client.new
