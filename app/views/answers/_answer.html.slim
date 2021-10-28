@@ -12,11 +12,11 @@ li id= "answer-#{answer.id}" class= [answer.best ? 'answer best' : 'answer']
 
   = render 'shared/votes', resource: answer
 
-  - if user_signed_in? && current_user.author_of?(answer.question) && !answer.best
+  - if can?(:manage, answer.question) && !answer.best
     p.best
       = button_to 'Best', set_best_answer_path(answer), remote: true, method: :patch
 
-  - if user_signed_in? && current_user.author_of?(answer)
+  - if can?(:manage, answer)
     = form_with model: answer, class: "attach", local: false do |f|
       = f.label :files
       = f.file_field :files, multiple: true, direct_upload: true

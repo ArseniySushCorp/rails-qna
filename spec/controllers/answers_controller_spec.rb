@@ -135,10 +135,10 @@ RSpec.describe AnswersController, type: :controller do
         expect { answer_destroy_no_js }.not_to change(author.answers, :count)
       end
 
-      it 'return forbidden status' do
+      it 'redirect to root path' do
         answer_destroy_no_js
 
-        expect(response).to have_http_status :forbidden
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -178,8 +178,8 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.reload).not_to be_best
       end
 
-      it 'return forbidden status' do
-        expect(response).to have_http_status :forbidden
+      it 'redirect to root path' do
+        expect(response).to redirect_to root_path
       end
     end
 

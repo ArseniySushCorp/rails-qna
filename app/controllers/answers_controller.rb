@@ -19,19 +19,19 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@answer)
+    if can?(:manage, @answer)
       @answer.destroy
     else
-      head :forbidden
+      redirect_to root_path
     end
   end
 
   def set_best
-    if current_user.author_of?(@answer.question)
+    if can?(:nominate, @answer.question)
       @answer.assign_as_best
       helpers.grant_reward(@answer.user)
     else
-      head :forbidden
+      redirect_to root_path
     end
   end
 

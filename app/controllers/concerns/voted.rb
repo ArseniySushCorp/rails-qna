@@ -14,7 +14,7 @@ module Voted
   end
 
   def cancel_vote
-    if @vote.present? && current_user.author_of?(@vote)
+    if @vote.present? && can?(:cancel_vote, @vote)
       render json: @vote, vote_count: @resource.total_votes
       @vote.destroy
     else
@@ -28,7 +28,7 @@ module Voted
     @vote = Vote.new(vote_params)
     @vote.assign_attributes(votable_id: @resource.id, user: current_user)
 
-    if current_user.author_of? @resource
+    if cannot?(:vote, @resource)
       render json: @vote.errors.full_messages, status: :unprocessable_entity
     elsif @vote.save
       render json: @vote
