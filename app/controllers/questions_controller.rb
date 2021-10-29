@@ -36,7 +36,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@question)
+    if can?(:manage, @question)
       @question.destroy
       flash[:notice] = t('user_actions.successfully_deleted', resource: @question.class)
     else

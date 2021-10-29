@@ -2,7 +2,7 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_user!
 
   def destroy
-    if current_user.author_of?(attachment.record)
+    if can?(:manage, attachment.record)
       attachment.purge
     else
       head :forbidden

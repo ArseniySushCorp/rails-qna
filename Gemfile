@@ -21,6 +21,7 @@ gem 'aws-sdk-s3', require: false
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'cancancan'
 gem 'cocoon'
 gem 'octokit', '~> 4.0'
 gem 'slim-rails'
