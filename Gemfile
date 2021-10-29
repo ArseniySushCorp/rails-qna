@@ -21,8 +21,10 @@ gem 'aws-sdk-s3', require: false
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'active_model_serializers', '~> 0.10'
 gem 'cancancan'
 gem 'cocoon'
+gem 'doorkeeper'
 gem 'octokit', '~> 4.0'
 gem 'slim-rails'
 gem 'with_model'

@@ -14,4 +14,10 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :links, :reward, reject_if: :all_blank
 
   validates :title, :body, presence: true
+
+  def files_url
+    files.map do |file|
+      file.url
+    end
+  end
 end
