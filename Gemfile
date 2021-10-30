@@ -16,6 +16,11 @@ gem 'webpacker', '~> 5.0'
 gem 'bootstrap'
 gem 'jquery-rails'
 
+
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'whenever', require: false
+
 # S3 bucket
 gem 'aws-sdk-s3', require: false
 

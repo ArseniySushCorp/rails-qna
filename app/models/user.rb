@@ -10,4 +10,6 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :rewards, dependent: :destroy
+  has_many :question_subscription
+  has_many :subscribed_questions, through: :question_subscription, source: :question, dependent: :destroy
 end

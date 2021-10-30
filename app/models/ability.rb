@@ -27,6 +27,8 @@ class Ability
     can :vote, [Question, Answer]
     can :cancel_vote, Vote, user_id: user.id
     can :nominate, Answer, question: { user_id: user.id }
+    can :subscribe, QuestionSubscription
+    can :unsubscribe, QuestionSubscription
 
     cannot :vote, [Question, Answer], user_id: user.id
   end
