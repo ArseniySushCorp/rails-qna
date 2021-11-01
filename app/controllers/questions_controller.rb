@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.build(question_params)
 
     if @question.save
+      @question.question_subscription.create(user: current_user)
       redirect_to @question, notice: t('user_actions.successfully_created', resource: @question.class)
     else
       render :new

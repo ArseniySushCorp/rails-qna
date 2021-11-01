@@ -26,6 +26,8 @@ RSpec.describe Ability, type: :model do
     it { should be_able_to :manage, create(:answer, user: user), user: user }
     it { should be_able_to :manage, create(:comment, user: user), user: user }
     it { should be_able_to :nominate, create(:answer, question: create(:question, user: user)), user: user }
+    it { should be_able_to :subscribe, QuestionSubscription }
+    it { should be_able_to :unsubscribe, QuestionSubscription }
 
     it { should_not be_able_to :manage, :all }
     it { should_not be_able_to :cancel_vote, create(:vote, user: other), user: user }

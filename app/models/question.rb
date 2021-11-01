@@ -8,6 +8,8 @@ class Question < ApplicationRecord
   has_many :answers, -> { order(best: :desc) }, inverse_of: :question, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
   has_many :comments, dependent: :destroy, as: :commentable
+  has_many :question_subscription
+  has_many :subscribers, through: :question_subscription, source: :user, dependent: :destroy
 
   has_many_attached :files
 

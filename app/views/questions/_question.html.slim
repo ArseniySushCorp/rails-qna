@@ -3,6 +3,13 @@
     = @question.title
   h3
     = @question.body
+
+    - if can?(:manage, question.question_subscription.build)
+      - if QuestionSubscription.where(question: question, user: current_user).first
+        = link_to 'Unsubscribe', unsubscribe_question_subscriptions_path(question_id: question.id), method: :delete
+      - else
+        = link_to 'Subscribe', subscribe_question_subscriptions_path(question_id: question.id), method: :post
+
   h5 Attachments:
   ul.files id= "files_attached-#{@question.id}"
     - if @question.files.attached?
